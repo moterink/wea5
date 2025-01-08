@@ -1,0 +1,35 @@
+.statistics-container {
+  padding: 16px;
+}
+
+.date-form {
+  display: flex;
+  gap: 8px;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  color: rgba(244, 67, 54, 1);
+  gap: 8px;
+}
+
+.mat-table {
+  width: 100%;
+  margin-top: 16px;
+}
+
+.no-data {
+  display: flex;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.54);
+  gap: 8px;
+  margin-top: 16px;
+}

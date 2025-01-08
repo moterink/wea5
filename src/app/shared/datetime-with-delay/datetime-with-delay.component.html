@@ -1,0 +1,8 @@
+<span>
+  {{ scheduled() | date: "HH:mm" }}
+  @if (delayInMinutes != 0) {
+    <strong
+      >{{ delayInMinutes > 0 ? "+" + delayInMinutes : delayInMinutes }}m</strong
+    >
+  }
+</span>

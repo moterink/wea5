@@ -1,0 +1,38 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name" required />
+    @if (form.get('name')?.hasError('required')) {
+      <mat-error>
+        Name is required
+      </mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Short Name</mat-label>
+    <input matInput formControlName="shortName" required />
+    @if (form.get('shortName')?.hasError('required')) {
+      <mat-error>
+        Short Name is required
+      </mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Location</mat-label>
+    <input matInput formControlName="location" required />
+    @if (form.get('location')?.hasError('required')) {
+      <mat-error>
+        Location is required
+      </mat-error>
+    }
+  </mat-form-field>
+
+  <div class="button-group">
+    <button mat-button type="button" (click)="form.reset()">Reset</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+      Submit
+    </button>
+  </div>
+</form>

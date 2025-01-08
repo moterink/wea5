@@ -1,0 +1,49 @@
+<mat-card class="calendar">
+  <mat-calendar
+    (selectedChange)="_onSelectedChange($event)"
+    [selected]="selectedDateRange"
+    [dateClass]="dateClass"
+  ></mat-calendar>
+</mat-card>
+
+<br />
+
+<table mat-table [dataSource]="holidays" class="mat-elevation-z8">
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let holiday"> {{ holiday.name }} </td>
+  </ng-container>
+
+  <!-- Start Date Column -->
+  <ng-container matColumnDef="startDate">
+    <th mat-header-cell *matHeaderCellDef> Start Date </th>
+    <td mat-cell *matCellDef="let holiday">
+      {{ holiday.startDate | date: 'mediumDate' }}
+    </td>
+  </ng-container>
+
+  <!-- End Date Column -->
+  <ng-container matColumnDef="endDate">
+    <th mat-header-cell *matHeaderCellDef> End Date </th>
+    <td mat-cell *matCellDef="let holiday">
+      {{ holiday.endDate | date: 'mediumDate' }}
+    </td>
+  </ng-container>
+
+  <!-- Is School Holiday Column -->
+  <ng-container matColumnDef="isSchoolHoliday">
+    <th mat-header-cell *matHeaderCellDef> School Holiday </th>
+    <td mat-cell *matCellDef="let holiday">
+      {{ holiday.isSchoolHoliday ? "Yes" : "No" }}
+    </td>
+  </ng-container>
+
+  <!-- Header and Row Definitions -->
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<button mat-fab class="add-btn" (click)="openCreateDialog()">
+  <mat-icon>add</mat-icon>
+</button>

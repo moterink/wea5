@@ -1,0 +1,30 @@
+/* src/app/components/arrivals/arrivals.component.css */
+.arrivals-container {
+  padding: 16px;
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  color: var(--mat-error);
+  font-weight: bold;
+}
+
+.error-message mat-icon {
+  margin-right: 8px;
+}
+
+.no-departures {
+  display: flex;
+  align-items: center;
+  color: var(--mat-text-disabled);
+}
+
+.no-departures mat-icon {
+  margin-right: 8px;
+}
+
+.delay {
+  color: var(--mat-warn);
+  margin-left: 4px;
+}

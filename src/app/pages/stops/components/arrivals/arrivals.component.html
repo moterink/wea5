@@ -1,0 +1,71 @@
+<!-- src/app/components/arrivals/arrivals.component.html -->
+<div class="arrivals-container">
+
+  @if (isLoading()) {
+    <mat-spinner></mat-spinner>
+  } @else if (error()) {
+    <div class="error-message">
+      <mat-icon color="warn">error</mat-icon>
+      <span>{{ error() }}</span>
+    </div>
+  } @else if (departures().length === 0) {
+    <div class="no-departures">
+      <mat-icon>info</mat-icon>
+      <span>No departures available.</span>
+    </div>
+  } @else {
+    <table mat-table [dataSource]="departures()" class="mat-elevation-z8">
+
+      <!-- Route Number Column -->
+      <ng-container matColumnDef="routeNumber">
+        <th mat-header-cell *matHeaderCellDef>Route</th>
+        <td mat-cell *matCellDef="let departure">{{ departure.routeNumber }}</td>
+      </ng-container>
+
+      <!-- Scheduled Departure Time Column -->
+      <ng-container matColumnDef="scheduledDepartureTime">
+        <th mat-header-cell *matHeaderCellDef>Scheduled</th>
+        <td mat-cell *matCellDef="let departure">{{ departure.scheduledDepartureTime | date:'shortTime' }}</td>
+      </ng-container>
+
+      <!-- Real Departure Time Column -->
+      <ng-container matColumnDef="realDepartureTime">
+        <th mat-header-cell *matHeaderCellDef>Real</th>
+        <td mat-cell *matCellDef="let departure">
+          {{ departure.realDepartureTime | date:'shortTime' }}
+          @if (departure.delay > 0) {
+            <span class="delay">
+              ({{ departure.delay / 60 | number:'1.0-0' }} mins)
+            </span>
+          }
+        </td>
+      </ng-container>
+
+      <!-- End Stop Column -->
+      <ng-container matColumnDef="endStop">
+        <th mat-header-cell *matHeaderCellDef>End Stop</th>
+        <td mat-cell *matCellDef="let departure">{{ departure.endStop }}</td>
+      </ng-container>
+
+      <!-- Delay Column -->
+      <ng-container matColumnDef="delay">
+        <th mat-header-cell *matHeaderCellDef>Delay</th>
+        <td mat-cell *matCellDef="let departure">
+          @if (departure.delay > 0) {
+            <mat-icon matTooltip="Delayed by {{ departure.delay / 60 | number:'1.0-0' }} minutes" color="warn">
+              schedule
+            </mat-icon>
+            <span>{{ departure.delay / 60 | number:'1.0-0' }} mins</span>
+          } @else {
+            <span>On Time</span>
+          }
+        </td>
+      </ng-container>
+
+      <!-- Header and Row Declarations -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  }
+
+</div>

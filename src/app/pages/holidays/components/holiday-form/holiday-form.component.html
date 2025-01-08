@@ -1,0 +1,15 @@
+<form [formGroup]="form">
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Date</mat-label>
+    <input matInput [matDatepicker]="datepicker" formControlName="startDate" />
+    <mat-datepicker #datepicker />
+    <mat-datepicker-toggle [for]="datepicker" matSuffix />
+  </mat-form-field>
+
+  <mat-checkbox formControlName="isSchoolHoliday">School holiday</mat-checkbox>
+</form>

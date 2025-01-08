@@ -1,0 +1,17 @@
+nav {
+  position: sticky;
+  display: flex;
+  padding: 8px;
+  width: 100vw;
+  gap: 4px;
+  background: var(--mat-sys-primary-container);
+}
+
+h3 {
+  margin: auto 12px;
+  color: var(--mat-sys-primary);
+}
+
+.nav-item-active {
+  background: color-mix(in srgb, var(--mat-sys-primary) 10%, transparent);
+}

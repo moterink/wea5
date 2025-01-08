@@ -1,0 +1,5 @@
+<mat-select formControlName="formControlName">
+  @for (stop of stops(); track stop.id) {
+    <mat-option [value]="stop.id">{{ stop.name }}</mat-option>
+  }
+</mat-select>

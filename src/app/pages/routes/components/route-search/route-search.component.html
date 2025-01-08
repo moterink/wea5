@@ -1,0 +1,100 @@
+@let stops = stops$ | async;
+
+<div class="route-search">
+  @if (stops) {
+    <div [formGroup]="form" class="params">
+      <mat-form-field>
+        <mat-label>Start stop</mat-label>
+        <mat-select formControlName="startStop">
+          @for (stop of stops; track stop.id) {
+            <mat-option [value]="stop.id">{{ stop.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>End stop</mat-label>
+        <mat-select formControlName="endStop">
+          @for (stop of stops; track stop.id) {
+            <mat-option [value]="stop.id">{{ stop.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Date</mat-label>
+        <input matInput [matDatepicker]="datepicker" formControlName="date" />
+        <mat-datepicker #datepicker />
+        <mat-datepicker-toggle [for]="datepicker" matSuffix />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Time</mat-label>
+        <input
+          matInput
+          [matTimepicker]="timepicker"
+          formControlName="time"
+          [value]="form.controls['time'].value"
+        />
+        <mat-timepicker #timepicker />
+        <mat-timepicker-toggle [for]="timepicker" matSuffix />
+        </mat-form-field>
+    </div>
+  } @else {
+    <mat-spinner></mat-spinner>
+  }
+</div>
+
+@if (isSelectionValid) {
+  @let timetable = timetable$ | async;
+  @if (timetable && isSelectionValid) {
+    @if (timetable.length > 0) {
+      <table mat-table [dataSource]="timetable" class="mat-elevation-z8">
+        <ng-container matColumnDef="routeId">
+          <th mat-header-cell *matHeaderCellDef>Route id</th>
+          <td mat-cell *matCellDef="let element">{{ element.routeId }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="startStopId">
+          <th mat-header-cell *matHeaderCellDef>Start stop</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.startStopId | stopDisplayName: stops }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="endStopId">
+          <th mat-header-cell *matHeaderCellDef>End stop</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.endStopId | stopDisplayName: stops }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="departure">
+          <th mat-header-cell *matHeaderCellDef>Departure</th>
+          <td mat-cell *matCellDef="let element">
+            <app-datetime-with-delay
+              [scheduled]="element.scheduledDepartureTime"
+              [real]="element.realDepartureTime"
+            ></app-datetime-with-delay>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="arrival">
+          <th mat-header-cell *matHeaderCellDef>Arrival</th>
+          <td mat-cell *matCellDef="let element">
+            <app-datetime-with-delay
+              [scheduled]="element.scheduledArrivalTime"
+              [real]="element.realArrivalTime"
+            ></app-datetime-with-delay>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    } @else {
+      <p>No routes found.</p>
+    }
+  } @else {
+    <mat-spinner></mat-spinner>
+  }
+} @else {
+  <p>Please select start and end stops</p>
+}

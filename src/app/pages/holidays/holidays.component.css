@@ -1,0 +1,16 @@
+.calendar {
+  width: 40%;
+}
+
+.holiday-date .mat-calendar-body-cell-content {
+  background: orange;
+  border-radius: 100%;
+  color: white;
+  font-weight: bold;
+}
+
+.add-btn {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+}
